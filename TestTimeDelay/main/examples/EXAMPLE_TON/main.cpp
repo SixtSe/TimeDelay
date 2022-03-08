@@ -49,6 +49,9 @@ extern "C" void app_main(void)
     TON TON1;
     TON1.PT = 1000;
 
+    TOGGLE TOGGLE1;
+
+
     while (true) // Endlos-Schleife
     {
         // Eingang lesen, das not wird gebraucht weil die Eingaenge bei losgelassenem Taster auf 3.3V sind, und der Taster auf GND schaltet.
