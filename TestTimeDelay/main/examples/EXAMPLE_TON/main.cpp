@@ -21,6 +21,7 @@ static const char * const TAG = "EXAMPLE_TON";
 
 
 #define BUTTON_I1 GPIO_NUM_26        // Pin 26.
+#define BUTTON_I2 GPIO_NUM_32        // Pin 32.
 #define GPIO_Q1 GPIO_NUM_19            // Pin 19.
 
 
@@ -40,9 +41,13 @@ extern "C" void app_main(void)
     */
     gpio_reset_pin(GPIO_Q1);
     gpio_reset_pin(BUTTON_I1);
+    gpio_reset_pin(BUTTON_I2);
+
     /* Set the GPIO as a push/pull output */
     gpio_set_direction(GPIO_Q1, GPIO_MODE_OUTPUT);
     gpio_set_direction(BUTTON_I1, GPIO_MODE_INPUT);
+    gpio_set_direction(BUTTON_I2, GPIO_MODE_INPUT);
+
     gpio_set_level(GPIO_Q1, 0); //set to 0 at Reset.
 
 
@@ -56,11 +61,12 @@ extern "C" void app_main(void)
     {
         // Eingang lesen, das not wird gebraucht weil die Eingaenge bei losgelassenem Taster auf 3.3V sind, und der Taster auf GND schaltet.
         bool I1 = not gpio_get_level(BUTTON_I1);
+        bool I2 = not gpio_get_level(BUTTON_I2);
 
         // den I1 an TON1 uebergeben, und TON1 aufrufen
         TON1(I1);
 
-//        TOGGLE1.RST = I3;
+        TOGGLE1.RST = I2;
         TOGGLE1(TON1.Q);
 
         // Ausgaenge setzen
